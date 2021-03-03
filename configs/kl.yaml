@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    #url: 'jdbc:h2:mem:test_mem'
+    url: "jdbc:h2:file:./target/database/h2"
+    username: sa
+    password: null
+    driverClassName: org.h2.Driver
+    max-active: 15
+  batch:
+    job:
+      enabled: false
+
+hapi:
+  fhir:
+    fhir_version: R4
+    implementationguides:
+      - url: http://build.fhir.org/ig/hl7dk/kl-gateway/branches/remove-slicing-from-entry/package.tgz
+        name: hl7.fhir.dk.kl.gateway.care
+        version: 1.0
+
+    enable_repository_validating_interceptor: true
+
+    supported_resource_types:
+      - Patient
+      - Observation
+      - StructureDefinition
+      - ValueSet
+      - CodeSystem
+      - NamingSystem
+      - Bundle
+      - CarePlan
+      - Condition
+      - Encounter
+      - Goal
+      - Binary
+      - Subscription
+
+    tester:
+      home:
+        name: Local Tester
+        server_address: "http://localhost:8080/fhir"
+        refuse_to_fetch_third_party_urls: false
+        fhir_version: R4
+
+      global:
+        name: Global Tester
+        server_address: "http://hapi.fhir.org/baseR4"
+        refuse_to_fetch_third_party_urls: false
+        fhir_version: R4
